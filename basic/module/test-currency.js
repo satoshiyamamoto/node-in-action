@@ -1,4 +1,4 @@
-var currency = require('./lib/currency');
+var currency = require('./currency');
 
 console.log('50 Canadian dollars equals this amount of US dollars:',
   currency.canadianToUS(50));
