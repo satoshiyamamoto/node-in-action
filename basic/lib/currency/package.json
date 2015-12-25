@@ -1,0 +1,5 @@
+{
+  "name": "currency convertor",
+  "version": "0.0.1",
+  "main": "./currency.js"
+}
