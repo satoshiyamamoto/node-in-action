@@ -1,0 +1,7 @@
+{
+  "name": "echo-server",
+  "version": "0.0.1",
+  "dependencies": [
+    "events"
+  ]
+}
