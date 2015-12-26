@@ -1,0 +1,13 @@
+{
+  "name": "todos",
+  "description": "Simple REST App",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "node ./todos.js"
+  },
+  "dependencies": [
+    "http",
+    "url",
+	"underscore"
+  ]
+}
