@@ -1,20 +1,62 @@
-// file-server.js
+// file-upload.js
 
 var http = require('http');
-var parse = require('url').parse;
-var join = require('path').join;
+var formitable = require('formitable');
 var fs = require('fs');
 
-var root = __dirname;
-
 var server = http.createServer(function (req, res) {
-  var url = parse(req.url);
-  var path = join(root, url.pathname);
-  var stream = fs.createReadStream(path);
-  stream.pipe(res);
-  stream.on('error', function (err) {
-    res.statusCode = 500;
-    res.end('Internal Server Error');
-  });
+  switch (req.method) {
+    case 'GET':
+      show(req, res);
+      break;
+    case 'POST':
+      upload(req, res);
+      break;
+  }
 });
 server.listen(3000);
+
+function show(req, res) {
+  var html = '' +
+    '<form method="post" action="/" enctype="multipart/form-data" >' +
+    '<p><input type="text" name="name" /></p>' +
+    '<p><input type="file" name="file" /></p>' +
+    '<p><input type="submit" value="Upload" /></p>' +
+    '</form>' +
+    '</body>' +
+    '</html>';
+  req.setHeader('Content-Type', 'text/html');
+  req.setHeader('Content-Length', Buffer.byteLength(html));
+  res.end(html);
+}
+
+function upload(req, res) {
+  if (!isFormData(req)) {
+    res.setStatus(400);
+    res.end('Bad Request: expecting multipart/form-data');
+    return;
+  }
+
+  var form = new formitable.IncomingForm();
+
+  form.on('field', function (field, value) {
+    console.log('field: %s', field);
+    console.log('value: %s', value);
+  });
+
+  form.on('file', function (name, file) {
+    console.log('name: %s', name);
+    console.log('file: $s', file);
+  });
+
+  form.on('end', function () {
+    res.end('upload complete!');
+  });
+
+  form.parse(req);
+}
+
+function isFormData(req) {
+  var type = req.headers['content-type'] || '';
+  return 0 == type.indexOf('multipart/form-data');
+}
