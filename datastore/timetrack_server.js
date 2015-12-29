@@ -1,3 +1,5 @@
+// datastore/timetrack_server.js
+
 var http = require('http');
 var work = require('./lib/timetrack');
 var mysql = require('mysql');
@@ -14,7 +16,7 @@ var server = http.createServer(function (req, res) {
     case 'POST':
       switch (req.url) {
         case '/':
-          work.add(db.req, res);
+          work.add(db, req, res);
           break;
         case '/archive':
           work.archive(db, req, res);
@@ -30,7 +32,7 @@ var server = http.createServer(function (req, res) {
           work.show(db, res);
           break;
         case '/archived':
-          sowrk.showArchived(db, res);
+          work.showArchived(db, res);
           break;
       }
       break;
@@ -42,10 +44,10 @@ db.query(
   'CREATE TABLE IF NOT EXISTS work (' +
   'id INT(10) NOT NULL AUTO_INCREMENT, ' +
   'hours DECIMAL(5,2) DEFAULT 0, ' +
-  'data DATE, ' +
+  'date DATE, ' +
   'archived INT(1) DEFAULT 0, ' +
   'description LONGTEXT, ' +
-  'PRIMARY KEY(id)',
+  'PRIMARY KEY(id))',
   function (err) {
     if (err) throw err;
     console.log('Server started...');

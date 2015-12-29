@@ -1,6 +1,6 @@
 // datastore/timetrack.js
 
-var qs = require('qs');
+var qs = require('querystring');
 
 exports.sendHtml = function (res, html) {
   res.setHeader('Content-Type', 'text/html');
@@ -30,9 +30,9 @@ exports.actionForm = function (id, path, label) {
 exports.add = function (db, req, res) {
   exports.parseRecievedData(req, function (work) {
     db.query(
-      'INSERT INTO work (hours, data, description) ' +
+      'INSERT INTO work (hours, date, description) ' +
       ' VALUES (?, ?, ?)',
-      [work.hours, work.data, work.description],
+      [work.hours, work.date, work.description],
       function (err) {
         if (err) throw err;
         exports.show(db, res);
@@ -53,7 +53,7 @@ exports.delete = function (db, req, res) {
   })
 };
 
-exports.update = function (db, req, res) {
+exports.archive = function (db, req, res) {
   exports.parseRecievedData(req, function (work) {
     db.query(
       'UPDATE work SET archived=1 WHERE id=?',
@@ -84,5 +84,47 @@ exports.show = function(db, res, showArchived) {
       exports.sendHtml(res, html);
     }
   );
+};
+
+exports.showArchived = function (db, res) {
+  exports.show(db, res, true);
+};
+
+exports.workHitlistHtml = function (rows) {
+  var html = '<table>';
+  html += '<table>';
+  console.log(rows);
+  for (var i in rows) {
+    html += '<tr>';
+    html += '<td>' + rows[i].date + '</td>';
+    html += '<td>' + rows[i].hours + '</td>';
+    html += '<td>' + rows[i].description + '</td>';
+    if (!rows[i].archived) {
+      html += '<td>' + exports.workArchiveForm(rows[i].id) + '</td>';
+    }
+    html += '<td>' + exports.workDeleteForm(rows[i].id) + '</td>';
+    html += '</tr>';
+  }
+  html += '</table>';
+  return html;
+};
+
+exports.workFormHtml = function () {
+  var html = '<form method="post" action="/">' +
+    '<p>Date (YYYY-MM-DD): <br/><input name="date" type="text"></p>' +
+    '<p>Hour worked: <br/><input name="hours" type="text" </p>' +
+    '<p>Description:<br/>' +
+    '<textarea name="description"></textarea></p>' +
+    '<input type="submit" value="Add">' +
+    '</form>';
+  return html;
+};
+
+exports.workArchiveForm = function (id) {
+  return exports.actionForm(id, '/archive', 'Archive');
+};
+
+exports.workDeleteForm = function (id) {
+  return exports.actionForm(id, '/delete', 'Delete');
 };
 

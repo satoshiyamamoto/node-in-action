@@ -1,5 +1,5 @@
 {
-  "name": "datastore-basic",
+  "name": "datastore",
   "version": "0.0.1",
   "dependencies": [
     "http",
