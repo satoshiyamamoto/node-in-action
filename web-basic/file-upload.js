@@ -1,7 +1,7 @@
 // file-upload.js
 
 var http = require('http');
-var formitable = require('formitable');
+var formidable = require('formidable');
 var fs = require('fs');
 
 var server = http.createServer(function (req, res) {
@@ -25,8 +25,8 @@ function show(req, res) {
     '</form>' +
     '</body>' +
     '</html>';
-  req.setHeader('Content-Type', 'text/html');
-  req.setHeader('Content-Length', Buffer.byteLength(html));
+  res.setHeader('Content-Type', 'text/html');
+  res.setHeader('Content-Length', Buffer.byteLength(html));
   res.end(html);
 }
 
@@ -37,7 +37,7 @@ function upload(req, res) {
     return;
   }
 
-  var form = new formitable.IncomingForm();
+  var form = new formidable.IncomingForm();
 
   form.on('field', function (field, value) {
     console.log('field: %s', field);

@@ -7,7 +7,7 @@
   },
   "dependencies": [
     "http",
-    "url",
-	"underscore"
+    "underscore",
+    "url"
   ]
 }
