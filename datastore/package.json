@@ -2,7 +2,9 @@
   "name": "datastore",
   "version": "0.0.1",
   "dependencies": [
+    "net",
     "http",
-    "mysql"
+    "mysql",
+    "redis"
   ]
 }
