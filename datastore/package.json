@@ -2,9 +2,10 @@
   "name": "datastore",
   "version": "0.0.1",
   "dependencies": [
-    "net",
-    "http",
     "mysql",
     "redis"
-  ]
+  ],
+  "devDependencies": {
+    "mongodb": "^2.1.2"
+  }
 }
