@@ -12,7 +12,7 @@ client.open(function (err) {
     console.log('We are now able to perform queries.');
 
     collection.insert({
-        'title': 'I like cake',
+        'title': 'I like cake.',
         'body': 'It is quite good.'
       },
       {safe: true},
@@ -30,6 +30,18 @@ client.open(function (err) {
         if (err) throw err;
       }
     );
+
+    collection.find({'title': 'I ate too much cake.'}).toArray(
+      function (err, results) {
+        if (err) throw err;
+        console.log(results);
+      }
+    );
+
+    var _id = new ObjectID('5685dfc4b15f500bcc9db3e0');
+    collection.remove({_id: _id}, {safe: true}, function (err) {
+      if (err) throw err;
+    });
   });
 });
 
