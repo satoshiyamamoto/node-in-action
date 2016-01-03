@@ -1,12 +1,13 @@
 var connect = require('connect');
 var vhost = require('vhost');
+var fs = require('fs');
 
-var server = connect();
+var app = connect();
 
-var app1 = require('./sites/expressjs.dev');
-server.use(vhost('expressjs.dev', app1));
+var sites = fs.readdirSync('./sites');
 
-var app2 = require('./sites/learnboost.dev');
-server.use(vhost('learnboost.dev', app2));
-
-server.listen(3000);
+sites.forEach(function (site) {
+  console.log(' ... %s', site);
+  app.use(vhost(site, require('./sites/' + site)));
+});
+app.listen(3000);
