@@ -12,10 +12,12 @@
     "body-parser": "^1.14.2",
     "connect": "^3.4.0",
     "cookie-parser": "^1.4.0",
+    "cookie-session": "^2.0.0-alpha.1",
     "media-typer": "^0.3.0",
     "morgan": "^1.6.1",
     "qs": "^6.0.1",
     "raw-body": "^2.1.5",
+    "serve-favicon": "^2.3.0",
     "vhost": "^3.0.2"
   }
 }
