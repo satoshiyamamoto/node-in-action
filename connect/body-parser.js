@@ -1,7 +1,9 @@
 var connect = require('connect');
 var bodyParser = require('body-parser');
+
 var app = connect()
-  .use(bodyParser())
+  .use(bodyParser.urlencoded({extended: false}))
+  .use(bodyParser.json())
   .use(function (req, res) {
     res.end('Registered new user: ' + req.body.username + '\n');
   })
