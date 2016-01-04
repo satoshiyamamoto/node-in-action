@@ -11,6 +11,7 @@
   "dependencies": {
     "basic-auth": "^1.0.3",
     "body-parser": "^1.14.2",
+    "compression": "^1.6.0",
     "connect": "^3.4.0",
     "cookie-parser": "^1.4.0",
     "cookie-session": "^2.0.0-alpha.1",
