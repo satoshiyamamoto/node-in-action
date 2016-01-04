@@ -59,7 +59,7 @@ exports.submit = function (dir) {
       }, function (err) {
         if (err) return next(err);
 
-        res.redirect('/photos');
+        res.redirect('/');
       });
     });
     req.pipe(req.busboy);

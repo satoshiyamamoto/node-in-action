@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/photos', photos.list);
+app.get('/', photos.list);
 app.get('/upload', photos.form);
 app.post('/upload', photos.submit(app.get('photos')));
 
