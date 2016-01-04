@@ -13,10 +13,13 @@ photos.push({
   path: 'https://nodejs.org/static/legacy/images/ryan-speaker.jpg'
 });
 
-exports.list = function (req, res) {
-  res.render('photos', {
-    title: 'Photos',
-    photos: photos
+exports.list = function (req, res, next) {
+  Photo.find({}, function (err, photos) {
+    if (err) return next(err);
+    res.render('photos', {
+      title: 'Photos',
+      photos: photos
+    });
   });
 };
 
@@ -30,9 +33,11 @@ exports.submit = function (dir) {
   return function (req, res, next) {
     var name;
     var path;
+    var fname;
     var fstream;
 
-    req.busboy.on('file', function(name, file, filename, encoding, mimetype) {
+    req.busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
+      fname = filename;
       path = join(dir, filename);
       fstream = fs.createWriteStream(path);
       file.pipe(fstream);
@@ -41,8 +46,8 @@ exports.submit = function (dir) {
       file.on('end', function() {});
     });
 
-    req.busboy.on('field', function(name, val, fieldnameTruncated, valTruncated) {
-      if (name === 'photo[name]') {
+    req.busboy.on('field', function(key, val, fieldnameTruncated, valTruncated) {
+      if (key === 'photo[name]') {
         name = val;
       }
     });
@@ -50,7 +55,7 @@ exports.submit = function (dir) {
     req.busboy.on('finish', function() {
       Photo.create({
         name: name,
-        path: path
+        path: fname
       }, function (err) {
         if (err) return next(err);
 
