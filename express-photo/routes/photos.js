@@ -65,3 +65,14 @@ exports.submit = function (dir) {
     req.pipe(req.busboy);
   };
 };
+
+exports.download = function (dir) {
+  return function (req, res, next) {
+    var id = req.params.id;
+    Photo.findById(id, function (err, photo) {
+      if (err) return next(err);
+      var url = join(dir, photo.path);
+      res.download(url, photo.name + path.extname(photo.path));
+    });
+  };
+};
