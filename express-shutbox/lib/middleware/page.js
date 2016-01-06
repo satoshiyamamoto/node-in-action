@@ -4,9 +4,9 @@ module.exports = function (fn, perpage) {
   perpage = perpage || 10;
   return function (req, res, next) {
     var page = Math.max(
-      parseInt(req.params.page || '1', 10),
+      parseInt(req.query.page || '1', 10),
       1
-    );
+    ) - 1;
 
     fn(function (err, total) {
       if (err) return next(err);
