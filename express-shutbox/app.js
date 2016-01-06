@@ -51,8 +51,8 @@ app.post('/post',
 app.get('/register', register.form);
 app.post('/register', register.submit);
 app.get('/api/user/:id', api.user);
-app.get('/api/entries/:page?', api.user);
-app.post('/api/entry', api.user);
+app.post('/api/entry', entries.submit);
+app.get('/api/entries/:page?', page(Entry.count), api.entries);
 app.get('/:page?', page(Entry.count, 5), entries.list);
 
 
