@@ -10,3 +10,21 @@ a {
 p.error {
   color: #ff0000
 }
+
+#menu {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 12px;
+  color: #888888;
+}
+
+#menu .name:after {
+  content: ' -';
+}
+
+#menu a {
+  text-decoration: none;
+  margin-left: 5px;
+  color: black;
+}
