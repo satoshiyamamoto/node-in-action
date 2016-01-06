@@ -43,6 +43,7 @@ User.prototype.hashPassword = function(fn) {
   var user = this;
   bcrypt.genSalt(12, function(err, salt) {
     if (err) return fn(err);
+    user.salt = salt;
     bcrypt.hash(user.pass, salt, function(err, hash) {
       if (err) return fn(err);
       user.pass = hash;
@@ -72,7 +73,7 @@ User.get = function(id, fn) {
 User.authenticate = function(name, pass, fn) {
   User.getByName(name, function(err, user) {
     if (err) return fn(err);
-    if (!user) return fn(); // not found
+    if (!user.id) return fn(err); // not found
     bcrypt.hash(pass, user.salt, function(err, hash) {
       if (err) return fn(err);
       if (hash == user.pass) return fn(null, user); // found
