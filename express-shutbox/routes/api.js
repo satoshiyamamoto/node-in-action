@@ -31,6 +31,14 @@ exports.entries = function (req, res, next) {
   var page = req.page;
   Entry.getRange(page.from, page.to, function (err, entries) {
     if (err) return next(err);
-    res.json(entries);
+
+    res.format({
+      'application/json': function () {
+        res.json(entries);
+      },
+      'application/xml': function () {
+        res.render('entries/xml', { entries: entries });
+      }
+    });
   });
 };
