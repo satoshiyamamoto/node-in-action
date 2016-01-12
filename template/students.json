@@ -1,0 +1,7 @@
+{
+  "students": [
+    {"name": "Rick LaRue", "age": 23},
+    {"name": "Sarah Cathands", "age": 25},
+    {"name": "Bob Dobbs", "age": 37}
+  ]
+}
