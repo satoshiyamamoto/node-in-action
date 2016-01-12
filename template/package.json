@@ -4,6 +4,7 @@
   "dependencies": {
     "ejs": "^2.3.4",
     "github-flavored-markdown": "^1.0.1",
-    "hogan.js": "^3.0.2"
+    "hogan.js": "^3.0.2",
+    "jade": "^1.11.0"
   }
 }

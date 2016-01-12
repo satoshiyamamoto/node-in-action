@@ -1,0 +1,7 @@
+{
+  "contacts": [
+    {"id": 1, "firstName": "Rick", "lastName": "LaRue", "isEditable": true, "status": "Active", "age": 23},
+    {"id": 2, "firstName": "Sarah", "lastName": "Sarah", "isEditable": true, "status": "Inactive", "age": 25},
+    {"id": 3, "firstName": "Bob", "lastName": "Bob", "isEditable": false, "status": "Pending", "age": 37}
+  ]
+}
