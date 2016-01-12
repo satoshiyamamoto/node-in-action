@@ -1,5 +1,17 @@
 html
   head
     block title
+    block style
+    block scripts
+      script(src='https://code.jquery.com/jquery-2.2.0.min.js')
   body
     block content
+
+  mixin list_object_property(objects, property)
+    ul
+      each object in objects
+        li= object[property]
+
+  +list_object_property(students, 'name')
+
+  include footer

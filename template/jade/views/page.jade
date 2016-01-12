@@ -3,6 +3,26 @@ extends layout
 block title
   title Messages
 
+block append scripts
+  - var baseUrl = 'https://code.jquery.com/'
+  script(src= baseUrl+'ui/1.11.4/jquery-ui.min.js')
+
+block style
+  - var baseUrl = 'https://code.jquery.com/'
+  link(rel="stylesheet", href= baseUrl+'ui/1.11.4/themes/flick/jquery-ui.css')
+
 block content
+  - var count = 0
   each message in messages
-    p= message
+    - count = count + 1
+    script
+    //
+      | $(function() {
+      |  $("#message_#{count}").dialog({
+      |    height: 140,
+      |    modal: true
+      |  });
+      | });
+
+    != '<div id="message_' + count + '">' + message + '</div>'
+
