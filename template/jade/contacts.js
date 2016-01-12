@@ -12,4 +12,3 @@ http.createServer(function (req, res) {
   res.setHeader('Content-Type', 'text/html');
   res.end(fn(context));
 }).listen(3000);
-
